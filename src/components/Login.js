@@ -1,5 +1,13 @@
+import firebase from "firebase/compat/app";
+import { auth } from "../firebase/setup";
+
 function Login(){
-    return <p>Login page</p>
+    const signInWithGoogle = () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        auth.signInWithPopup(provider);
+    }
+
+    return <button onClick={signInWithGoogle}>Sign in with Google</button>
 }
 
 export default Login;

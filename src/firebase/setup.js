@@ -7,7 +7,7 @@ firebase.initializeApp({
     storageBucket: "graduation-project-f1f53.appspot.com",
     messagingSenderId: "1052485363656",
     appId: "1:1052485363656:web:0b8ab8eae92aba73e702fd"
-  });
+});
 
 const auth = firebase.auth();
 const firestore = firebase.firestore();
