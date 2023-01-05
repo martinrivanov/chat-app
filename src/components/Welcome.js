@@ -1,4 +1,8 @@
+import { useNavigate } from "react-router";
+
 function Welcome(){
+    const navigate = useNavigate();
+
     return (
         <div>
             <div className="welcome-header">
@@ -7,7 +11,7 @@ function Welcome(){
             </div>
 
             <div>
-                <button>Sign in</button>
+                <button onClick={() => navigate('/login')}>Sign in</button>
                 <p>If you don't have an account, click <a href="#">here</a></p>
             </div>
         </div>

@@ -12,7 +12,7 @@ function Home(){
             <h1>Welcome {user.displayName}</h1>
             <SignOut />
         </div>
-    ) : <Login />    
+    ) : <Welcome />    
 }
 
 export default Home;
