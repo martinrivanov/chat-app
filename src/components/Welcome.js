@@ -7,16 +7,11 @@
 
 import { useNavigate } from "react-router";
 import '../App.css';
+import Login from "./Login";
 
 function Welcome(){
-    const navigate = useNavigate();
-
     const showLogIn = () => {
         document.getElementsByClassName('modal')[0].style.display = 'block';
-    }
-
-    const hideLogIn = () => {
-        document.getElementsByClassName('modal')[0].style.display = 'none';
     }
 
     return (
@@ -26,19 +21,7 @@ function Welcome(){
                 <p>Be able to connect with others</p>
             </div>
 
-
-            <div className="modal">
-                <div className="modal-content">
-                    <span className="close-btn" onClick={() => hideLogIn()}>&times;</span>
-                    <form id="modal-form">  
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" id="password"  />
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password"  />
-                        <button>Log in</button>
-                    </form>
-                </div>
-            </div>
+            <Login />
 
             <div className="auth-btns">
                 <button onClick={() => showLogIn()}>Log in</button>
