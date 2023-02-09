@@ -8,10 +8,15 @@
 import { useNavigate } from "react-router";
 import '../App.css';
 import Login from "./Login";
+import SignUp from "./SignUp";
 
 function Welcome(){
     const showLogIn = () => {
-        document.getElementsByClassName('modal')[0].style.display = 'block';
+        document.getElementById('modal-login').style.display = 'block';
+    }
+
+    const showSignUp = () => {
+        document.getElementById('modal-signup').style.display = 'block';
     }
 
     return (
@@ -22,10 +27,11 @@ function Welcome(){
             </div>
 
             <Login />
+            <SignUp />
 
             <div className="auth-btns">
                 <button onClick={() => showLogIn()}>Log in</button>
-                <button>Sign up</button>
+                <button onClick={() => showSignUp()}>Sign up</button>
             </div>
 
             {/* <div>

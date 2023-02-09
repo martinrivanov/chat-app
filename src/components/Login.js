@@ -1,32 +1,20 @@
-import firebase from "firebase/compat/app";
-import { useReducer, useState } from "react";
-import { auth } from "../firebase/setup";
+import { useState } from "react";
+import { signInWithGoogle } from "../firebase/auth";
 
 function Login(){
-    const signIn = (state, action) => {
-
-    }
-
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [state, dispatcher] = useReducer(signIn, {});
 
     const handleEmailInput = (value) => setEmail(value);
     const handlePasswordInput = (value) => setPassword(value);
 
-
-    const signInWithGoogle = () => {
-        const provider = new firebase.auth.GoogleAuthProvider();
-        auth.signInWithPopup(provider);
-    }
-
     const hideLogIn = () => {
-        document.getElementsByClassName('modal')[0].style.display = 'none';
+        document.getElementById('modal-login').style.display = 'none';
     }
 
     return (
         <>
-            <div className="modal">
+            <div className="modal" id="modal-login">
                 <div className="modal-content">
                     <span className="close-btn" onClick={() => hideLogIn()}>&times;</span>
                     <form id="modal-form">  
@@ -35,9 +23,9 @@ function Login(){
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" value={password} onChange={(e) => handlePasswordInput(e.currentTarget.value)} />
                         <button>Log in</button>
-                        <hr />
-                        <button>Create Google Account</button>
                     </form>
+                    <hr />
+                    <button onClick={() => signInWithGoogle()}>Create Google Account</button>
                 </div>
             </div>
         </>
