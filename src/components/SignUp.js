@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { getStorage } from 'firebase/storage'
+import { createAccountWithEmailAndPassword } from "../firebase/auth";
 
 function SignUp(){
     const [firstName, setFirstName] = useState('');
@@ -14,6 +14,11 @@ function SignUp(){
     const handlePasswordInput = (value) => setPassword(value);
     const handleImageUploadInput = (value) => setImageUpload(value);
 
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        createAccountWithEmailAndPassword(firstName, lastName, email, password, imageUpload)
+    }
+
     const hideSignUp = () => {
         document.getElementById('modal-signup').style.display = 'none';
     }
@@ -23,7 +28,7 @@ function SignUp(){
             <div className="modal" id="modal-signup">
                 <div className="modal-content">
                     <span className="close-btn" onClick={() => hideSignUp()}>&times;</span>
-                    <form id="modal-form">  
+                    <form id="modal-form" onSubmit={(e) => handleFormSubmit(e)}>  
                         <label for="first-name">First name:</label>
                         <input type="text" name="first-name" id="first-name" value={firstName} onChange={(e) => handleFirstNameInput(e.currentTarget.value)}/>
                         <label for="last-name">Last name:</label>
