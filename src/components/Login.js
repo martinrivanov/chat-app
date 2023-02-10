@@ -25,7 +25,7 @@ function Login(){
                         <button>Log in</button>
                     </form>
                     <hr />
-                    <button onClick={() => signInWithGoogle()}>Create Google Account</button>
+                    <button onClick={() => signInWithGoogle()}>Log in with Google</button>
                 </div>
             </div>
         </>
