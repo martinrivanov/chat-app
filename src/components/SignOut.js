@@ -1,7 +1,9 @@
 import { auth } from "../firebase/setup";
-import { signOut } from "../firebase/auth"
+import { useSignOut } from "react-firebase-hooks/auth";
 
-function SignOut(){
+function SignOut() {
+    const [signOut] = useSignOut(auth);
+
     return auth.currentUser && (
         <button onClick={() => signOut()}>Sign Out</button>
     );

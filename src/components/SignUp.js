@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { createAccountWithEmailAndPassword } from "../firebase/auth";
+import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from "react-firebase-hooks/auth";
+import { useUploadFile } from "react-firebase-hooks/storage";
+import { ref, getDownloadURL } from "firebase/storage";
+import { auth, storage } from "../firebase/setup";
 
 function SignUp(){
     const [firstName, setFirstName] = useState('');
@@ -7,6 +10,13 @@ function SignUp(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [imageUpload, setImageUpload] = useState(null);
+
+    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+    const [signInWithGoogle] = useSignInWithGoogle(auth);
+    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    const [updateProfile] = useUpdateProfile(auth);
+
+    const [uploadFile] = useUploadFile();
 
     const handleFirstNameInput = (value) => setFirstName(value);
     const handleLastNameInput = (value) => setLastName(value);
@@ -16,11 +26,32 @@ function SignUp(){
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
-        createAccountWithEmailAndPassword(firstName, lastName, email, password, imageUpload)
+        createUserWithEmailAndPassword(email, password)
+            .then(async (userCredential) => {
+                const storageRef = ref(storage, userCredential.user.uid + '.jpg');
+                const photoUpload = await uploadFile(storageRef, imageUpload);
+                const photoURL = await getDownloadURL(storageRef);
+
+                updateProfile({displayName: `${firstName} ${lastName}`, photoURL})
+                    .then(() => {
+                        auth.signOut()
+                            .then(() => {
+                                signInWithEmailAndPassword(email, password)
+                                    .then(() => {
+                                        console.log(auth.currentUser);
+                                    });
+                            });
+                    })
+            });
     }
 
     const hideSignUp = () => {
         document.getElementById('modal-signup').style.display = 'none';
+        handleFirstNameInput('');
+        handleLastNameInput('');
+        handleEmailInput('');
+        handlePasswordInput('');
+        handleImageUploadInput(null);
     }
 
     return(
@@ -38,10 +69,10 @@ function SignUp(){
                         <label for="password">Password:</label>
                         <input type="password" name="password" id="password" value={password} onChange={(e) => handlePasswordInput(e.currentTarget.value)} />
                         <input type="file" name="profile-image" id="profile-image" accept="image/jpg, image/jpeg, image/png" onChange={(e) => handleImageUploadInput(e.currentTarget.files[0])} />
-                        <button>Log in</button>
+                        <button>Sign Up</button>
                     </form>
                     <hr />
-                    <button>Create account with Google</button>
+                    <button onClick={() => signInWithGoogle()}>Create account with Google</button>
                 </div>
             </div>
         </>
