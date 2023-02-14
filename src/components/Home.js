@@ -5,7 +5,6 @@ import SignOut from './SignOut';
 
 function Home(){
     const [user] = useAuthState(auth);
-    //const [isLoading, setLoading] = useSharedLoadingState();
 
     return user && user.displayName ? (
         <div>
