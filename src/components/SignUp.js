@@ -38,7 +38,8 @@ function SignUp(){
                 await setDoc(doc(firestore, 'users', userCredential.user.uid), {
                     fullName: `${firstName} ${lastName}`,
                     photoURL,
-                    chatRooms: null
+                    uid: userCredential.user.uid,
+                    chatRooms: null,
                 });
 
                 updateProfile({displayName: `${firstName} ${lastName}`, photoURL})
@@ -60,6 +61,7 @@ function SignUp(){
                 await setDoc(doc(firestore, 'users', userCredential.user.uid), {
                     fullName: userCredential.user.displayName,
                     photoURL: userCredential.user.photoURL,
+                    uid: userCredential.user.uid,
                     chatRooms: null
                 });
             })

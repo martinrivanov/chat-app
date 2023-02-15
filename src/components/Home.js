@@ -6,7 +6,7 @@ import LoggedInScreen from './LoggedInScreen';
 function Home(){
     const [user] = useAuthState(auth);
 
-    return user && user.displayName ? <LoggedInScreen user={user} /> : <GuestScreen />    
+    return user && user.displayName ? <LoggedInScreen currentUser={user} /> : <GuestScreen />    
 }
 
 export default Home;

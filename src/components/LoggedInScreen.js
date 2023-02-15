@@ -1,19 +1,24 @@
-import { auth } from "../firebase/setup";
+import { auth, firestore } from "../firebase/setup";
 import { getAuth } from "@firebase/auth";
 import SignOut from "./SignOut";
+import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useEffect } from "react";
 
 const LoggedInScreen = (props) => {
-    const {user} = props;
+    const {currentUser} = props;
+
+    const usersRef = firestore.collection('users');
+    const query = usersRef.where('uid', '!=', currentUser.uid).orderBy('uid');
+    const [users] = useCollectionData(query, {idField: 'id'});
 
     useEffect(() => {
-        console.log(user);
-    }, []);
+        console.log(users.sort(u => u.fullName));
+    }, [users]);
 
     return (
         <div>
-            <img src={user.photoURL} />
-            <h1>Welcome {user.displayName}</h1>
+            <img src={currentUser.photoURL} />
+            <h1>Welcome {currentUser.displayName}</h1>
             <SignOut />
         </div>
     );
