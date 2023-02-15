@@ -5,8 +5,6 @@ import 'firebase/compat/firestore';
 
 import Home from './components/Home';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import Welcome from './components/Welcome';
-import Login from './components/Login';
 
 function App(){
   return(

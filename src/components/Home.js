@@ -1,18 +1,12 @@
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../firebase/setup';
-import Welcome from './Welcome';
-import SignOut from './SignOut';
+import GuestScreen from './GuestScreen';
+import LoggedInScreen from './LoggedInScreen';
 
 function Home(){
     const [user] = useAuthState(auth);
 
-    return user && user.displayName ? (
-        <div>
-            <img src={user.photoURL} />
-            <h1>Welcome {user.displayName}</h1>
-            <SignOut />
-        </div>
-    ) : <Welcome />    
+    return user && user.displayName ? <LoggedInScreen user={user} /> : <GuestScreen />    
 }
 
 export default Home;

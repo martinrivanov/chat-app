@@ -2,7 +2,8 @@ import { useState } from "react";
 import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { ref, getDownloadURL } from "firebase/storage";
-import { auth, storage } from "../firebase/setup";
+import { auth, firestore, storage } from "../firebase/setup";
+import { doc, setDoc } from "firebase/firestore";
 
 function SignUp(){
     const [firstName, setFirstName] = useState('');
@@ -18,6 +19,8 @@ function SignUp(){
 
     const [uploadFile] = useUploadFile();
 
+    const usersRef = firestore.collection('users');
+
     const handleFirstNameInput = (value) => setFirstName(value);
     const handleLastNameInput = (value) => setLastName(value);
     const handleEmailInput = (value) => setEmail(value);
@@ -29,8 +32,14 @@ function SignUp(){
         createUserWithEmailAndPassword(email, password)
             .then(async (userCredential) => {
                 const storageRef = ref(storage, userCredential.user.uid + '.jpg');
-                const photoUpload = await uploadFile(storageRef, imageUpload);
+                await uploadFile(storageRef, imageUpload);
                 const photoURL = await getDownloadURL(storageRef);
+
+                await setDoc(doc(firestore, 'users', userCredential.user.uid), {
+                    fullName: `${firstName} ${lastName}`,
+                    photoURL,
+                    chatRooms: null
+                });
 
                 updateProfile({displayName: `${firstName} ${lastName}`, photoURL})
                     .then(() => {
@@ -43,6 +52,17 @@ function SignUp(){
                             });
                     })
             });
+    }
+
+    const handleGoogleButtonClick = async () => {
+        signInWithGoogle()
+            .then(async (userCredential) => {
+                await setDoc(doc(firestore, 'users', userCredential.user.uid), {
+                    fullName: userCredential.user.displayName,
+                    photoURL: userCredential.user.photoURL,
+                    chatRooms: null
+                });
+            })
     }
 
     const hideSignUp = () => {
@@ -72,7 +92,7 @@ function SignUp(){
                         <button>Sign Up</button>
                     </form>
                     <hr />
-                    <button onClick={() => signInWithGoogle()}>Create account with Google</button>
+                    <button onClick={() => handleGoogleButtonClick()}>Create account with Google</button>
                 </div>
             </div>
         </>
