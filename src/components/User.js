@@ -1,10 +1,12 @@
 const User = (props) => {
-    const [displayName, photoURL] = {...props};
+    const {fullName, photoURL, uid} = {...props.user};
 
     return (
-        <div>
+        <div id={uid}>
             <img src={photoURL}/>
-            <h3>{displayName}</h3>
+            <h4>{fullName}</h4>
         </div>
     );
 }
+
+export default User;

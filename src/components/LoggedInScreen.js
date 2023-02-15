@@ -3,6 +3,7 @@ import { getAuth } from "@firebase/auth";
 import SignOut from "./SignOut";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { useEffect } from "react";
+import User from "./User";
 
 const LoggedInScreen = (props) => {
     const {currentUser} = props;
@@ -12,14 +13,13 @@ const LoggedInScreen = (props) => {
     const [users] = useCollectionData(query, {idField: 'id'});
 
     useEffect(() => {
-        console.log(users.sort(u => u.fullName));
+        console.log(users);
     }, [users]);
 
     return (
         <div>
-            <img src={currentUser.photoURL} />
-            <h1>Welcome {currentUser.displayName}</h1>
             <SignOut />
+            {users && users.map((u, index) => <User key={index} user={u} />)}
         </div>
     );
 }
