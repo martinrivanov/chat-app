@@ -3,8 +3,8 @@ const User = (props) => {
 
     return (
         <div id={uid}>
-            <img src={photoURL}/>
-            <h4>{fullName}</h4>
+            <img className="profile-img" src={photoURL}/>
+            <h4 className="profile-name">{fullName}</h4>
         </div>
     );
 }

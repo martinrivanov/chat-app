@@ -60,6 +60,18 @@
   animation-duration: 0.4s;
 }
 
+@keyframes animateTop {
+  from{
+      top: -300px;
+      opacity: 0;
+  }
+
+  to{
+      top: 0;
+      opacity: 1;
+  }
+}
+
 .close-btn{
   float: right;
   color: lightgray;
@@ -70,4 +82,15 @@
 
 .close-btn:hover{
   color: darkgray;
+}
+
+.grid-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+
+.profile-img{
+  width: 25%;
+  border-radius: 50%;
 }

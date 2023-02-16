@@ -83,14 +83,14 @@ function SignUp(){
                     <span className="close-btn" onClick={() => hideSignUp()}>&times;</span>
                     <form id="modal-form" onSubmit={(e) => handleFormSubmit(e)}>  
                         <label for="first-name">First name:</label>
-                        <input type="text" name="first-name" id="first-name" value={firstName} onChange={(e) => handleFirstNameInput(e.currentTarget.value)}/>
+                        <input type="text" name="first-name" id="first-name" value={firstName} onChange={(e) => handleFirstNameInput(e.currentTarget.value)} required/>
                         <label for="last-name">Last name:</label>
-                        <input type="text" name="last-name" id="last-name" value={lastName} onChange={(e) => handleLastNameInput(e.currentTarget.value)}/>
+                        <input type="text" name="last-name" id="last-name" value={lastName} onChange={(e) => handleLastNameInput(e.currentTarget.value)} required/>
                         <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" value={email} onChange={(e) => handleEmailInput(e.currentTarget.value)} />
+                        <input type="email" name="email" id="email" value={email} onChange={(e) => handleEmailInput(e.currentTarget.value)} required />
                         <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" value={password} onChange={(e) => handlePasswordInput(e.currentTarget.value)} />
-                        <input type="file" name="profile-image" id="profile-image" accept="image/jpg, image/jpeg, image/png" onChange={(e) => handleImageUploadInput(e.currentTarget.files[0])} />
+                        <input type="password" name="password" id="password" value={password} onChange={(e) => handlePasswordInput(e.currentTarget.value)} required />
+                        <input type="file" name="profile-image" id="profile-image" accept="image/jpg" onChange={(e) => handleImageUploadInput(e.currentTarget.files[0])} />
                         <button>Sign Up</button>
                     </form>
                     <hr />

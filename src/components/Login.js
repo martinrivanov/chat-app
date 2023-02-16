@@ -30,9 +30,9 @@ function Login(){
                     <span className="close-btn" onClick={() => hideLogIn()}>&times;</span>
                     <form id="modal-form" onSubmit={(e) => handleFormSubmit(e)}>  
                         <label for="email">Email:</label>
-                        <input type="email" name="email" id="email" value={email} onChange={(e) => handleEmailInput(e.currentTarget.value)} />
+                        <input type="email" name="email" id="email" value={email} onChange={(e) => handleEmailInput(e.currentTarget.value)} required />
                         <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" value={password} onChange={(e) => handlePasswordInput(e.currentTarget.value)} />
+                        <input type="password" name="password" id="password" value={password} onChange={(e) => handlePasswordInput(e.currentTarget.value)} required />
                         <button>Log In</button>
                     </form>
                     <hr />

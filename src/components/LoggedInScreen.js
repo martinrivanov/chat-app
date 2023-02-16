@@ -19,7 +19,9 @@ const LoggedInScreen = (props) => {
     return (
         <div>
             <SignOut />
-            {users && users.map((u, index) => <User key={index} user={u} />)}
+            <div className="grid-container">
+                {users && users.map((u, index) => <User key={index} user={u} />)}
+            </div>
         </div>
     );
 }
