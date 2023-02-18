@@ -19,8 +19,6 @@ function SignUp(){
 
     const [uploadFile] = useUploadFile();
 
-    const usersRef = firestore.collection('users');
-
     const handleFirstNameInput = (value) => setFirstName(value);
     const handleLastNameInput = (value) => setLastName(value);
     const handleEmailInput = (value) => setEmail(value);
