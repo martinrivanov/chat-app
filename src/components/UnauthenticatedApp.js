@@ -2,7 +2,7 @@ import '../App.css';
 import Login from "./Login";
 import SignUp from "./SignUp";
 
-function GuestScreen(){
+function UnauthenticatedApp(){
     const showLogIn = () => {
         document.getElementById('modal-login').style.display = 'block';
     }
@@ -29,4 +29,4 @@ function GuestScreen(){
     )
 }
 
-export default GuestScreen;
+export default UnauthenticatedApp;

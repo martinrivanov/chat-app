@@ -4,7 +4,7 @@ const User = (props) => {
     return (
         <div className="user-card" id={uid}>
             <img className="profile-img" src={photoURL}/>
-            <h4 className="profile-name">{fullName}</h4>
+            <p className="profile-name">{fullName}</p>
         </div>
     );
 }

@@ -1,8 +1,6 @@
 import './App.css';
-
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
-
 import Home from './components/Home';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 
