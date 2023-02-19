@@ -6,7 +6,7 @@ const Group = (props) => {
 
     return (
         <li>
-            <h4>{data.name}</h4>
+            <Link to={`/room/${groupDocs.id}`}>{data.name}</Link>
         </li>
     );
 }
