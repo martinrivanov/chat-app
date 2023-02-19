@@ -1,6 +1,5 @@
 import { firestore } from "../firebase/setup";
 import { useCollection } from 'react-firebase-hooks/firestore';
-import { useEffect } from "react";
 import Group from "./Group";
 
 const PublicGroupPage = (props) => {
