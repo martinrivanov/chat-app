@@ -95,6 +95,24 @@
   border-radius: 50%;
 }
 
-.user-card{
-  
+.group-list{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.group{
+  height: 100px;
+  background: var(--color-gray);
+  flex: 1 1 calc(50% - 4px);
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+}
+
+.group a:active, .group a:visited, .group a:link{
+  color: white;
+  text-decoration: none;
 }

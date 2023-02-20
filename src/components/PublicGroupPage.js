@@ -12,11 +12,14 @@ const PublicGroupPage = (props) => {
         <main ref={refference}>
             {!loading &&
                 <div>
-                    <h3>Groups...</h3>
+                    <h3>Groups</h3>
                     <p>Click on one of the groups to start chatting</p>
-                    <ul>
-                        {groups && groups.docs.map((docs, index) => <Group key={index} groupDocs={docs} />)}
-                    </ul>
+                    
+                    <div className="group-list">
+                        <ul>
+                            {groups && groups.docs.map((docs, index) => <Group key={index} groupDocs={docs} />)}
+                        </ul>
+                    </div>
                 </div>
             }
         </main>
