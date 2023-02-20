@@ -5,7 +5,7 @@ const Group = (props) => {
     const data = groupDocs.data();
 
     return (
-        <li className="group">
+        <li className="group-card">
             <Link to={`/room/${groupDocs.id}`}>{data.name}</Link>
         </li>
     );
