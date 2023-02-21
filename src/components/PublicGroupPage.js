@@ -2,6 +2,7 @@ import { firestore } from "../firebase/setup";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Group from "./Group";
 import { useState } from "react";
+import { useNavigate } from "react-router";
 
 const PublicGroupPage = (props) => {
     const {refference} = props;
@@ -11,10 +12,16 @@ const PublicGroupPage = (props) => {
 
     const [groupName, setGroupName] = useState('');
 
+    const navigate = useNavigate();
+
     const handleGroupNameInput = (value) => setGroupName(value);
 
     const addNewGroup = () => {
-        //groupsRef.add()
+        groupsRef.add({
+            name: groupName,
+        }).then((groupDoc) => {
+            navigate(`/room/${groupDoc.id}`);
+        });
     }
 
     return (
