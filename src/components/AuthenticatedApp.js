@@ -1,7 +1,7 @@
-import SignOut from "./SignOut";
+import SignOut from "./auth/SignOut";
 import { useEffect, useRef } from "react";
-import PrivateChatRoomPage from "./PrivateChatRoomPage";
-import PublicGroupPage from "./PublicGroupPage";
+import PrivateChatRoomPage from "./chat/PrivateChatRoomPage";
+import PublicGroupPage from "./chat/PublicGroupPage";
 
 const AuthenticatedApp = (props) => {
     const {currentUser} = props;
@@ -26,7 +26,7 @@ const AuthenticatedApp = (props) => {
     return (
         <div>
             <div>
-                <img className="profile-img" src={currentUser.photoURL}/>
+                <img className="profile-img" src={currentUser.photoURL} alt="profile-img"/>
                 <SignOut />
             </div>
 
@@ -35,7 +35,7 @@ const AuthenticatedApp = (props) => {
                 <button onClick={() => showPublicGroupPage()}>Public Groups</button>
             </div>
 
-            <PrivateChatRoomPage uid={currentUser.uid} refference={privateChatRoomPage} />
+            <PrivateChatRoomPage refference={privateChatRoomPage} uid={currentUser.uid} />
 
             <PublicGroupPage refference={publicGroupPage}/>
 

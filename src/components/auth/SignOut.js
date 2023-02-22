@@ -1,4 +1,4 @@
-import { auth } from "../firebase/setup";
+import { auth } from "../../firebase/setup";
 import { useSignOut } from "react-firebase-hooks/auth";
 
 function SignOut() {

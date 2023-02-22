@@ -3,7 +3,7 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import Home from './components/Home';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import Chatroom from './components/Chatroom';
+import Chatroom from './components/chat/Chatroom';
 
 function App(){
   return(

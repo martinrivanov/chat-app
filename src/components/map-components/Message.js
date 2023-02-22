@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { auth } from "../firebase/setup";
+import { auth } from "../../firebase/setup";
 
 const Message = (props) => {
     const {content, uid} = props.message;

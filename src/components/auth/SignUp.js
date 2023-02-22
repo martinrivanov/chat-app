@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { ref, getDownloadURL } from "firebase/storage";
-import { auth, firestore, storage } from "../firebase/setup";
+import { auth, firestore, storage } from "../../firebase/setup";
 import { doc, setDoc } from "firebase/firestore";
 
 function SignUp(){
@@ -37,7 +37,6 @@ function SignUp(){
                     fullName: `${firstName} ${lastName}`,
                     photoURL,
                     uid: userCredential.user.uid,
-                    chatRooms: null,
                 });
 
                 updateProfile({displayName: `${firstName} ${lastName}`, photoURL})

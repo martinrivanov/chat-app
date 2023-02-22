@@ -1,6 +1,6 @@
-import { firestore } from "../firebase/setup";
+import { firestore } from "../../firebase/setup";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import User from "./User";
+import User from "../map-components/User";
 
 const PrivateChatRoomPage = (props) => {
     const {uid, refference} = props;

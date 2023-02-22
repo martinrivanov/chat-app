@@ -1,6 +1,6 @@
 import '../App.css';
-import Login from "./Login";
-import SignUp from "./SignUp";
+import Login from "./auth/Login";
+import SignUp from "./auth/SignUp";
 
 function UnauthenticatedApp(){
     const showLogIn = () => {

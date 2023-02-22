@@ -1,6 +1,6 @@
-import { firestore } from "../firebase/setup";
+import { firestore } from "../../firebase/setup";
 import { useCollection } from 'react-firebase-hooks/firestore';
-import Group from "./Group";
+import Group from "../map-components/Group";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 

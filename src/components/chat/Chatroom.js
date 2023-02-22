@@ -2,8 +2,8 @@ import firebase from "firebase/compat/app";
 import { useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useNavigate, useParams } from "react-router"
-import { auth, firestore } from "../firebase/setup";
-import Message from "./Message";
+import { auth, firestore } from "../../firebase/setup";
+import Message from "../map-components/Message";
 
 const Chatroom = () => {
     const navigate = useNavigate();
