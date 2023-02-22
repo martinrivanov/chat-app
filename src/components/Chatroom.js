@@ -1,9 +1,9 @@
 import firebase from "firebase/compat/app";
 import { useState } from "react";
-import { useCollectionData, useCollectionOnce } from "react-firebase-hooks/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useNavigate, useParams } from "react-router"
 import { auth, firestore } from "../firebase/setup";
-import ChatMessage from "./ChatMessage";
+import Message from "./Message";
 
 const Chatroom = () => {
     const navigate = useNavigate();
@@ -34,7 +34,7 @@ const Chatroom = () => {
         <>
             <button onClick={() => navigate('/')}>Go back</button>
             <main>
-                {messages && messages.filter(msg => msg.roomId === params.id).map((msg, index) => <ChatMessage key={index} message={msg}/>)}
+                {messages && messages.filter(msg => msg.roomId === params.id).map((msg, index) => <Message key={index} message={msg}/>)}
             </main>
 
             <form onSubmit={(e) => sendMessage(e)}>

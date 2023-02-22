@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { auth } from "../firebase/setup";
 
-const ChatMessage = (props) => {
+const Message = (props) => {
     const {content, uid} = props.message;
     const messageClass = uid === auth.currentUser.uid ? 'sent' : 'received';
 
@@ -12,4 +12,4 @@ const ChatMessage = (props) => {
     );
 }
 
-export default ChatMessage;
+export default Message;
