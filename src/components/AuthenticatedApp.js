@@ -9,19 +9,21 @@ const AuthenticatedApp = (props) => {
     const privateChatRoomPage = useRef();
     const publicGroupPage = useRef();
 
+    useEffect(() => {
+        showPrivateChatRoomPage();
+    }, [privateChatRoomPage]);
+
     const showPrivateChatRoomPage = () => {
-        let action = privateChatRoomPage.current.classList.contains('hidden-page') ? privateChatRoomPage.current.classList.remove('hidden-page') : null;
         publicGroupPage.current.style.display = 'none';
+        if (privateChatRoomPage.current) {
+            let action = privateChatRoomPage.current.classList.contains('hidden-page') ? privateChatRoomPage.current.classList.remove('hidden-page') : null;
+        }
     }
 
     const showPublicGroupPage = () => {
         publicGroupPage.current.style.display = 'block';
         privateChatRoomPage.current.classList.add('hidden-page');
     }
-
-    useEffect(() => {
-        showPrivateChatRoomPage();
-    }, [privateChatRoomPage]);
 
     return (
         <div>

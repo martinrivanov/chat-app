@@ -160,3 +160,8 @@
   min-width: 70vw;
   min-height: 80vh;
 }
+
+.user-card:hover{
+  background-color: #3d4350;
+  cursor: pointer;
+}
