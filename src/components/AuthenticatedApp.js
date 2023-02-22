@@ -10,13 +10,13 @@ const AuthenticatedApp = (props) => {
     const publicGroupPage = useRef();
 
     const showPrivateChatRoomPage = () => {
-        privateChatRoomPage.current.style.display = 'block';
+        let action = privateChatRoomPage.current.classList.contains('hidden-page') ? privateChatRoomPage.current.classList.remove('hidden-page') : null;
         publicGroupPage.current.style.display = 'none';
     }
 
     const showPublicGroupPage = () => {
         publicGroupPage.current.style.display = 'block';
-        privateChatRoomPage.current.style.display = 'none';
+        privateChatRoomPage.current.classList.add('hidden-page');
     }
 
     useEffect(() => {

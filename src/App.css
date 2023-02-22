@@ -150,3 +150,13 @@
   background: #e5e5ea;
   color: black;
 }
+
+.hidden-page{
+  visibility: hidden;
+  max-height: 0;
+}
+
+.messages-space{
+  min-width: 70vw;
+  min-height: 80vh;
+}

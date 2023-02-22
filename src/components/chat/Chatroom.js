@@ -33,7 +33,7 @@ const Chatroom = () => {
     return(
         <>
             <button onClick={() => navigate('/')}>Go back</button>
-            <main>
+            <main className="messages-space">
                 {messages && messages.filter(msg => msg.roomId === params.id).map((msg, index) => <Message key={index} message={msg}/>)}
             </main>
 
