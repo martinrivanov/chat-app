@@ -2,16 +2,18 @@ import { firestore } from "../../firebase/setup";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import User from "../map-components/User";
 import { useRef, useState } from "react";
+import ChatroomCreateDialog from "./ChatroomCreateDialog";
 
 const PrivateChatRoomPage = (props) => {
-    const {uid, refference} = props;
+    const {refference} = props;
+    const {uid} = {...props.currentUser};
 
     const [userId, setUserId] = useState('');
 
-    const btnRef = useRef();
+    const dialogRef = useRef();
 
     const usersRef = firestore.collection('users');
-    const userQuery = usersRef.where('uid', '!=', uid).orderBy('uid');
+    const userQuery = usersRef.orderBy('fullName');
     const [users] = useCollectionData(userQuery, {idField: 'id'});
 
     const privateRoomsRef = firestore.collection('private-rooms');
@@ -29,9 +31,9 @@ const PrivateChatRoomPage = (props) => {
                 }
                 <p>Click on any user to send them a message</p>
                 <div className="grid-container">
-                    {users && users.map((u, index) => <User key={index} user={u} setUserId={setUserId} btnRef={btnRef}/>)}
+                    {users && users.filter(u => u.uid !== uid).map((u, index) => <User key={index} user={u} setUserId={setUserId} dialogRef={dialogRef}/>)}
                 </div>
-                <button style={{display: "none"}} ref={btnRef} onClick={() => console.log(userId)}>Test</button>
+                <ChatroomCreateDialog currentUserId={uid} secondUserId={userId} setUserId={setUserId} privateRoomsRef={privateRoomsRef} reference={dialogRef} />
             </main>}
         </div>
     );

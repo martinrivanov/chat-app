@@ -28,7 +28,7 @@ const AuthenticatedApp = (props) => {
     return (
         <div>
             <div>
-                <img className="profile-img" src={currentUser.photoURL} alt="profile-img"/>
+                <img className="current-profile-img" src={currentUser.photoURL} alt="profile-img" referrerPolicy="no-referrer"/>
                 <SignOut />
             </div>
 
@@ -37,7 +37,7 @@ const AuthenticatedApp = (props) => {
                 <button onClick={() => showPublicGroupPage()}>Public Groups</button>
             </div>
 
-            <PrivateChatRoomPage refference={privateChatRoomPage} uid={currentUser.uid} />
+            <PrivateChatRoomPage refference={privateChatRoomPage} currentUser={currentUser} />
 
             <PublicGroupPage refference={publicGroupPage}/>
 
