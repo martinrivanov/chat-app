@@ -1,13 +1,18 @@
 import firebase from "firebase/compat/app";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
-import { useNavigate, useParams } from "react-router"
+import { useLocation, useNavigate, useParams } from "react-router"
 import { auth, firestore } from "../../firebase/setup";
 import Message from "../map-components/Message";
 
 const Chatroom = () => {
     const navigate = useNavigate();
     const params = useParams();
+    const location = useLocation();
+
+    useEffect(() => {
+        console.log(location.pathname.split('/'));
+    }, [location]);
 
     const messagesRef = firestore.collection('messages');
     const query = messagesRef.orderBy('creationDate');
@@ -27,6 +32,10 @@ const Chatroom = () => {
             roomId: params.id
         }).then(() => {
             setMessage('');
+
+            // if (location.pathname.split('/')[1] === 'room') {
+                
+            // }
         });
     }
 

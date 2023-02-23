@@ -4,11 +4,11 @@ import { useNavigate } from "react-router";
 import { firestore } from "../../firebase/setup";
 
 const ChatroomCreateDialog = (props) => {
-    const {currentUserId, secondUserId, privateRoomsRef, setUserId, reference} = props;
+    const {currentUserId, secondUserId, privateRoomsRef, setUserId, reference, usersRef} = props;
 
     useEffect(() => {
-        console.log(props.currentUserId);
-    }, [props]);
+        console.log(usersRef)
+    }, [usersRef])
 
     const [message, setMessage] = useState('');
     const navigate = useNavigate()
@@ -17,26 +17,32 @@ const ChatroomCreateDialog = (props) => {
 
     const handleMessageInput = (value) => setMessage(value);
 
-    const handleDialogSubmit = (e) => {
+    const handleDialogSubmit = async (e) => {
         e.preventDefault();
 
         const lastMessageTimestamp = firebase.firestore.FieldValue.serverTimestamp();
 
-        console.log(secondUserId);
-
-        privateRoomsRef.add({
+        const docRef = await privateRoomsRef.add({
             uidFirstUser: currentUserId,
             uidSecondUser: secondUserId,
             dateOfLastMessageSent: lastMessageTimestamp
-        }).then((docRef) => {
-            messageRef.add({
-                content: message,
-                uid: currentUserId,
-                creationDate: lastMessageTimestamp,
-                roomId: docRef.id
-            }).then(() => {
-                console.log(docRef.id);
+        });
+
+        messageRef.add({
+            content: message,
+            uid: currentUserId,
+            creationDate: lastMessageTimestamp,
+            roomId: docRef.id
+        }).then(() => {
+            usersRef.doc(currentUserId).update({
+                interactedUsers: firebase.firestore.FieldValue.arrayUnion(secondUserId)
             })
+        }).then(() => {
+            usersRef.doc(secondUserId).update({
+                interactedUsers: firebase.firestore.FieldValue.arrayUnion(currentUserId)
+            })
+        }).then(() => {
+            navigate(`/room/${docRef.id}`)
         })
     }
 

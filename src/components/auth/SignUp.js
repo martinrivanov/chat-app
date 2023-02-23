@@ -37,6 +37,7 @@ function SignUp(){
                     fullName: `${firstName} ${lastName}`,
                     photoURL,
                     uid: userCredential.user.uid,
+                    interactedUsers: []
                 });
 
                 updateProfile({displayName: `${firstName} ${lastName}`, photoURL})
