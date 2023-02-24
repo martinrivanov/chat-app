@@ -6,10 +6,6 @@ import { firestore } from "../../firebase/setup";
 const ChatroomCreateDialog = (props) => {
     const {currentUserId, secondUserId, privateRoomsRef, setUserId, reference, usersRef} = props;
 
-    useEffect(() => {
-        console.log(usersRef)
-    }, [usersRef])
-
     const [message, setMessage] = useState('');
     const navigate = useNavigate()
 

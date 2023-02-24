@@ -16,4 +16,6 @@ const auth = firebase.auth();
 const firestore = firebase.firestore();
 const storage = getStorage(firebaseApp);
 
-export {auth, firestore, storage};
+const privateRoomsRef = firestore.collection('private-rooms');
+
+export {auth, firestore, storage, privateRoomsRef};

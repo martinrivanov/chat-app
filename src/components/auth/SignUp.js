@@ -44,10 +44,7 @@ function SignUp(){
                     .then(() => {
                         auth.signOut()
                             .then(() => {
-                                signInWithEmailAndPassword(email, password)
-                                    .then(() => {
-                                        console.log(auth.currentUser);
-                                    });
+                                signInWithEmailAndPassword(email, password);
                             });
                     })
             });

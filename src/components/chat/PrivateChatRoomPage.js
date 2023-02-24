@@ -18,14 +18,29 @@ const PrivateChatRoomPage = (props) => {
     const [users] = useCollectionData(userQuery, {idField: 'id'});
 
     const privateRoomsRef = firestore.collection('private-rooms');
-    const privateRoomQuery = privateRoomsRef.orderBy('dateOfLastMessageSent');
+    const privateRoomQuery = privateRoomsRef.orderBy('dateOfLastMessageSent', 'desc');
     const [privateRooms, loading] = useCollection(privateRoomQuery, {idField: 'id'});
 
     const interactions = users && users.filter(u => u.uid === uid)[0].interactedUsers;
 
-    useEffect(() => {
-        console.log(interactions);
-    }, [interactions])
+    const getPrivateRoomData = () => {
+        let data = [];
+
+        privateRooms.forEach(pr => {
+            let id = pr.id;
+            let privateRoomData = pr.data();
+
+            let entry = {
+                id,
+                ...privateRoomData
+            };
+
+            data.push(entry);
+        });
+
+        let filteredData = data.filter(pr => pr.uidFirstUser === uid || pr.uidSecondUser === uid);
+        return filteredData;
+    }
 
     return (
         <div>
@@ -33,7 +48,9 @@ const PrivateChatRoomPage = (props) => {
             <main ref={refference}>
                 {
                     (privateRooms.docs.length > 0 && privateRooms.docs.map(doc => doc.data()).filter(pr => pr.uidFirstUser === uid || pr.uidSecondUser === uid).length > 0) ? 
-                    privateRooms.docs.map(doc => doc.data()).map((pr, index) => <PrivateRoom key={index} room={pr} usersRef={usersRef} uid={uid} />) :
+                    <ul>
+                        {getPrivateRoomData().map((pr, index) => <PrivateRoom key={index} room={pr} usersRef={usersRef} uid={uid} />)}
+                    </ul> :
                     <h3>You haven't texted anyone yet</h3>
                 }
                 <p>Click on any user to send them a message</p>

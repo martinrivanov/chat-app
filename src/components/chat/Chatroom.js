@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useLocation, useNavigate, useParams } from "react-router"
-import { auth, firestore } from "../../firebase/setup";
+import { auth, firestore, privateRoomsRef } from "../../firebase/setup";
 import Message from "../map-components/Message";
 
 const Chatroom = () => {
@@ -33,9 +33,11 @@ const Chatroom = () => {
         }).then(() => {
             setMessage('');
 
-            // if (location.pathname.split('/')[1] === 'room') {
-                
-            // }
+            if (location.pathname.split('/')[1] === 'room') {
+                privateRoomsRef.doc(params.id).update({
+                    dateOfLastMessageSent: firebase.firestore.FieldValue.serverTimestamp()
+                })
+            }
         });
     }
 
