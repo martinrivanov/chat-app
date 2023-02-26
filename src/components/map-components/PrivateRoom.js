@@ -19,9 +19,9 @@ const PrivateRoom = (props) => {
     }, [])
 
     return(
-        <li>
+        <li className="list-items">
             <Link to={`/room/${id}`}>
-                <img src={userPhotoURL} referrerPolicy="no-referrer" />
+                <img className="profile-pic" src={userPhotoURL} referrerPolicy="no-referrer" />
                 <p>{userFullName}</p>
             </Link>
         </li>

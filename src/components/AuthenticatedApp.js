@@ -16,19 +16,18 @@ const AuthenticatedApp = (props) => {
     const showPrivateChatRoomPage = () => {
         publicGroupPage.current.style.display = 'none';
         if (privateChatRoomPage.current) {
-            let action = privateChatRoomPage.current.classList.contains('hidden-page') ? privateChatRoomPage.current.classList.remove('hidden-page') : null;
+            privateChatRoomPage.current.style.display = 'block';
         }
     }
 
     const showPublicGroupPage = () => {
         publicGroupPage.current.style.display = 'block';
-        privateChatRoomPage.current.classList.add('hidden-page');
+        privateChatRoomPage.current.style.display = 'none';
     }
 
     return (
         <div>
             <div>
-                <img className="current-profile-img" src={currentUser.photoURL} alt="profile-img" referrerPolicy="no-referrer"/>
                 <SignOut />
             </div>
 

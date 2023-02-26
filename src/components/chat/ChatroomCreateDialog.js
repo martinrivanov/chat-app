@@ -1,7 +1,7 @@
 import firebase from "firebase/compat/app";
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { firestore, privateRoomsRef, usersRef, messagesRef } from "../../firebase/setup";
+import { privateRoomsRef, usersRef, messagesRef } from "../../firebase/setup";
 
 const ChatroomCreateDialog = (props) => {
     const {currentUserId, secondUserId, setUserId, reference} = props;
@@ -14,30 +14,32 @@ const ChatroomCreateDialog = (props) => {
     const handleDialogSubmit = async (e) => {
         e.preventDefault();
 
-        const lastMessageTimestamp = firebase.firestore.FieldValue.serverTimestamp();
+        if (message && message.trim()) {
+            const lastMessageTimestamp = firebase.firestore.FieldValue.serverTimestamp();
 
-        const docRef = await privateRoomsRef.add({
-            uidFirstUser: currentUserId,
-            uidSecondUser: secondUserId,
-            dateOfLastMessageSent: lastMessageTimestamp
-        });
+            const docRef = await privateRoomsRef.add({
+                uidFirstUser: currentUserId,
+                uidSecondUser: secondUserId,
+                dateOfLastMessageSent: lastMessageTimestamp
+            });
 
-        messagesRef.add({
-            content: message,
-            uid: currentUserId,
-            creationDate: lastMessageTimestamp,
-            roomId: docRef.id
-        }).then(() => {
-            usersRef.doc(currentUserId).update({
-                interactedUsers: firebase.firestore.FieldValue.arrayUnion(secondUserId)
+            messagesRef.add({
+                content: message,
+                uid: currentUserId,
+                creationDate: lastMessageTimestamp,
+                roomId: docRef.id
+            }).then(() => {
+                usersRef.doc(currentUserId).update({
+                    interactedUsers: firebase.firestore.FieldValue.arrayUnion(secondUserId)
+                })
+            }).then(() => {
+                usersRef.doc(secondUserId).update({
+                    interactedUsers: firebase.firestore.FieldValue.arrayUnion(currentUserId)
+                })
+            }).then(() => {
+                navigate(`/room/${docRef.id}`)
             })
-        }).then(() => {
-            usersRef.doc(secondUserId).update({
-                interactedUsers: firebase.firestore.FieldValue.arrayUnion(currentUserId)
-            })
-        }).then(() => {
-            navigate(`/room/${docRef.id}`)
-        })
+        }
     }
 
     const hideDialog = () => {
@@ -51,7 +53,7 @@ const ChatroomCreateDialog = (props) => {
             <div className="modal-content">
                 <span className="close-btn" onClick={() => hideDialog()}>&times;</span>
                 <form onSubmit={(e) => handleDialogSubmit(e)}>
-                    <input type="text" placeholder="Write your first message to this person..." value={message} onChange={(e) => handleMessageInput(e.currentTarget.value)} />
+                    <input type="text" placeholder="Write your first message to this person" value={message} onChange={(e) => handleMessageInput(e.currentTarget.value)} />
                     <button type="submit">Send Message</button>
                 </form>
             </div>

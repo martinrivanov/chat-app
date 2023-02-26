@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useLocation, useNavigate, useParams } from "react-router"
-import { auth, firestore, privateRoomsRef, messagesRef } from "../../firebase/setup";
+import { auth, privateRoomsRef, messagesRef } from "../../firebase/setup";
 import Message from "../map-components/Message";
 
 const Chatroom = () => {
@@ -24,20 +24,22 @@ const Chatroom = () => {
     const sendMessage = (e) => {
         e.preventDefault();
 
-        messagesRef.add({
-            content: message,
-            uid: auth.currentUser.uid,
-            creationDate: firebase.firestore.FieldValue.serverTimestamp(),
-            roomId: params.id
-        }).then(() => {
-            setMessage('');
-
-            if (location.pathname.split('/')[1] === 'room') {
-                privateRoomsRef.doc(params.id).update({
-                    dateOfLastMessageSent: firebase.firestore.FieldValue.serverTimestamp()
-                })
-            }
-        });
+        if (message && message.trim()) {
+            messagesRef.add({
+                content: message,
+                uid: auth.currentUser.uid,
+                creationDate: firebase.firestore.FieldValue.serverTimestamp(),
+                roomId: params.id
+            }).then(() => {
+                setMessage('');
+    
+                if (location.pathname.split('/')[1] === 'room') {
+                    privateRoomsRef.doc(params.id).update({
+                        dateOfLastMessageSent: firebase.firestore.FieldValue.serverTimestamp()
+                    })
+                }
+            });
+        }
     }
 
     return(

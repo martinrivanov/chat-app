@@ -1,14 +1,18 @@
+import { useRef } from 'react';
 import '../App.css';
 import Login from "./auth/Login";
 import SignUp from "./auth/SignUp";
 
-function UnauthenticatedApp(){
+const UnauthenticatedApp = () => {
+    const loginRef = useRef();
+    const signUpRef = useRef();
+
     const showLogIn = () => {
-        document.getElementById('modal-login').style.display = 'block';
+        loginRef.current.style.display = 'block';
     }
 
     const showSignUp = () => {
-        document.getElementById('modal-signup').style.display = 'block';
+        signUpRef.current.style.display = 'block';
     }
 
     return (
@@ -18,8 +22,8 @@ function UnauthenticatedApp(){
                 <p>Be able to connect with others</p>
             </div>
 
-            <Login />
-            <SignUp />
+            <Login loginRef={loginRef} />
+            <SignUp signUpRef={signUpRef} />
 
             <div className="auth-btns">
                 <button onClick={() => showLogIn()}>Log in</button>

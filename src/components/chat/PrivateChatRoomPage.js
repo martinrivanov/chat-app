@@ -1,4 +1,4 @@
-import { firestore, privateRoomsRef, usersRef } from "../../firebase/setup";
+import { privateRoomsRef, usersRef } from "../../firebase/setup";
 import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore';
 import User from "../map-components/User";
 import { useRef, useState } from "react";
@@ -44,6 +44,7 @@ const PrivateChatRoomPage = (props) => {
         <div>
             {!loading && 
             <main ref={refference}>
+                <h3>Chatrooms:</h3>
                 {
                     (privateRooms.docs.length > 0 && privateRooms.docs.map(doc => doc.data()).filter(pr => pr.uidFirstUser === uid || pr.uidSecondUser === uid).length > 0) ? 
                     <ul>
@@ -51,7 +52,7 @@ const PrivateChatRoomPage = (props) => {
                     </ul> :
                     <h3>You haven't texted anyone yet</h3>
                 }
-                <p>Click on any user to send them a message</p>
+                <p className="caution">Click on any user to send them a message</p>
                 <div className="grid-container">
                     {(users && interactions) && users.filter(u => u.uid !== uid && !interactions.includes(u.uid)).map((u, index) => <User key={index} user={u} setUserId={setUserId} dialogRef={dialogRef} />)}
                 </div>

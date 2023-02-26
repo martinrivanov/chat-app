@@ -1,4 +1,4 @@
-import { firestore, groupsRef } from "../../firebase/setup";
+import { groupsRef } from "../../firebase/setup";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Group from "../map-components/Group";
 import { useState } from "react";
@@ -28,15 +28,14 @@ const PublicGroupPage = (props) => {
             {!loading &&
                 <div>
                     <h3>Groups</h3>
-                    <p>Click on one of the groups to start chatting</p>
+                    <p className="caution">Click on one of the groups to start chatting</p>
                     
                     <div className="group-list">
                         <ul>
                             {groups && groups.docs.map((docs, index) => <Group key={index} groupDocs={docs} />)}
                             <li className="group-card hover-form">
-                                <p>Add new group</p>
                                 <div className="group-form">
-                                    <input placeholder="Name of the group" value={groupName} onChange={(e) => handleGroupNameInput(e.currentTarget.value)} />
+                                    <input className="add-new-group" placeholder="Name of the group" value={groupName} onChange={(e) => handleGroupNameInput(e.currentTarget.value)} />
                                     <button onClick={() => addNewGroup()}>Add new group</button>
                                 </div>
                             </li>
