@@ -2,7 +2,7 @@ import firebase from "firebase/compat/app";
 import { useEffect, useState } from "react";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { useLocation, useNavigate, useParams } from "react-router"
-import { auth, firestore, privateRoomsRef } from "../../firebase/setup";
+import { auth, firestore, privateRoomsRef, messagesRef } from "../../firebase/setup";
 import Message from "../map-components/Message";
 
 const Chatroom = () => {
@@ -14,7 +14,6 @@ const Chatroom = () => {
         console.log(location.pathname.split('/'));
     }, [location]);
 
-    const messagesRef = firestore.collection('messages');
     const query = messagesRef.orderBy('creationDate');
     const [messages] = useCollectionData(query);
 

@@ -1,7 +1,7 @@
-import { firestore } from "../../firebase/setup";
+import { firestore, privateRoomsRef, usersRef } from "../../firebase/setup";
 import { useCollectionData, useCollection } from 'react-firebase-hooks/firestore';
 import User from "../map-components/User";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import ChatroomCreateDialog from "./ChatroomCreateDialog";
 import PrivateRoom from "../map-components/PrivateRoom";
 
@@ -13,11 +13,9 @@ const PrivateChatRoomPage = (props) => {
 
     const dialogRef = useRef();
 
-    const usersRef = firestore.collection('users');
     const userQuery = usersRef.orderBy('fullName');
     const [users] = useCollectionData(userQuery, {idField: 'id'});
 
-    const privateRoomsRef = firestore.collection('private-rooms');
     const privateRoomQuery = privateRoomsRef.orderBy('dateOfLastMessageSent', 'desc');
     const [privateRooms, loading] = useCollection(privateRoomQuery, {idField: 'id'});
 
@@ -49,7 +47,7 @@ const PrivateChatRoomPage = (props) => {
                 {
                     (privateRooms.docs.length > 0 && privateRooms.docs.map(doc => doc.data()).filter(pr => pr.uidFirstUser === uid || pr.uidSecondUser === uid).length > 0) ? 
                     <ul>
-                        {getPrivateRoomData().map((pr, index) => <PrivateRoom key={index} room={pr} usersRef={usersRef} uid={uid} />)}
+                        {getPrivateRoomData().map((pr, index) => <PrivateRoom key={index} room={pr} uid={uid} />)}
                     </ul> :
                     <h3>You haven't texted anyone yet</h3>
                 }
@@ -57,7 +55,7 @@ const PrivateChatRoomPage = (props) => {
                 <div className="grid-container">
                     {(users && interactions) && users.filter(u => u.uid !== uid && !interactions.includes(u.uid)).map((u, index) => <User key={index} user={u} setUserId={setUserId} dialogRef={dialogRef} />)}
                 </div>
-                <ChatroomCreateDialog currentUserId={uid} secondUserId={userId} setUserId={setUserId} privateRoomsRef={privateRoomsRef} reference={dialogRef} usersRef={usersRef} />
+                <ChatroomCreateDialog currentUserId={uid} secondUserId={userId} setUserId={setUserId}  reference={dialogRef} />
             </main>}
         </div>
     );

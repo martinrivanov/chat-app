@@ -1,4 +1,4 @@
-import { firestore } from "../../firebase/setup";
+import { firestore, groupsRef } from "../../firebase/setup";
 import { useCollection } from 'react-firebase-hooks/firestore';
 import Group from "../map-components/Group";
 import { useState } from "react";
@@ -7,7 +7,6 @@ import { useNavigate } from "react-router";
 const PublicGroupPage = (props) => {
     const {refference} = props;
 
-    const groupsRef = firestore.collection('groups');
     const [groups, loading] = useCollection(groupsRef);
 
     const [groupName, setGroupName] = useState('');

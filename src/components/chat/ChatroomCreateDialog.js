@@ -1,15 +1,13 @@
 import firebase from "firebase/compat/app";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router";
-import { firestore } from "../../firebase/setup";
+import { firestore, privateRoomsRef, usersRef, messagesRef } from "../../firebase/setup";
 
 const ChatroomCreateDialog = (props) => {
-    const {currentUserId, secondUserId, privateRoomsRef, setUserId, reference, usersRef} = props;
+    const {currentUserId, secondUserId, setUserId, reference} = props;
 
     const [message, setMessage] = useState('');
     const navigate = useNavigate()
-
-    const messageRef = firestore.collection('messages');
 
     const handleMessageInput = (value) => setMessage(value);
 
@@ -24,7 +22,7 @@ const ChatroomCreateDialog = (props) => {
             dateOfLastMessageSent: lastMessageTimestamp
         });
 
-        messageRef.add({
+        messagesRef.add({
             content: message,
             uid: currentUserId,
             creationDate: lastMessageTimestamp,

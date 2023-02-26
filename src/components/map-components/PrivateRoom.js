@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { usersRef } from "../../firebase/setup";
 
 const PrivateRoom = (props) => {
-    const {usersRef, uid} = props;
+    const {uid} = props;
     const {id, uidFirstUser, uidSecondUser} = {...props.room}
 
     const [userFullName, setUserFullName] = useState('');
