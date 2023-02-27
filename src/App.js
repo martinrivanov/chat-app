@@ -4,7 +4,6 @@ import 'firebase/compat/firestore';
 import Home from './components/Home';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import Chatroom from './components/chat/Chatroom';
-import 'font-awesome/css/font-awesome.min.css';
 
 function App(){
   return(
