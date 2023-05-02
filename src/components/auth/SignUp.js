@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useCreateUserWithEmailAndPassword, useSignInWithEmailAndPassword, useSignInWithGoogle, useUpdateProfile } from "react-firebase-hooks/auth";
 import { useUploadFile } from "react-firebase-hooks/storage";
 import { ref, getDownloadURL } from "firebase/storage";
@@ -35,17 +35,23 @@ const SignUp = (props) => {
                     alert(error.message);
                 }
                 else{
-                    const storageRef = ref(storage, userCredential.user.uid + '.jpg');
-                    await uploadFile(storageRef, imageUpload);
-                    const photoURL = await getDownloadURL(storageRef);
+                    let imageFile = imageUpload ? userCredential.user.uid + '.jpg' : 'default-avatar.png';
+
+                    const storageRef = ref(storage, imageFile);
                     
+                    if (imageUpload) {
+                        await uploadFile(storageRef, imageUpload);
+                    }
+
+                    const photoURL = await getDownloadURL(storageRef);
+
                     await setDoc(doc(firestore, 'users', userCredential.user.uid), {
                         fullName: `${firstName} ${lastName}`,
                         photoURL,
                         uid: userCredential.user.uid,
                         interactedUsers: []
                     });
-                
+
                     updateProfile({displayName: `${firstName} ${lastName}`, photoURL})
                         .then(() => {
                             auth.signOut()
