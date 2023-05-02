@@ -8,7 +8,7 @@ function Login(props){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
+    const [signInWithEmailAndPassword, user, load, error] = useSignInWithEmailAndPassword(auth);
     const [signInWithGoogle] = useSignInWithGoogle(auth);
 
     const handleEmailInput = (value) => setEmail(value);
@@ -16,7 +16,11 @@ function Login(props){
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
-        signInWithEmailAndPassword(email, password);
+        signInWithEmailAndPassword(email, password)
+        
+        if(error) {
+            alert(error.message);
+        }
     }
 
     const hideLogIn = () => {

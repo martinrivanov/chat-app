@@ -16,7 +16,7 @@ const SignUp = (props) => {
 
     const [signInWithEmailAndPassword] = useSignInWithEmailAndPassword(auth);
     const [signInWithGoogle] = useSignInWithGoogle(auth);
-    const [createUserWithEmailAndPassword] = useCreateUserWithEmailAndPassword(auth);
+    const [createUserWithEmailAndPassword, createdUser, signUpLoad, error] = useCreateUserWithEmailAndPassword(auth);
     const [updateProfile] = useUpdateProfile(auth);
 
     const [uploadFile] = useUploadFile();
@@ -31,24 +31,29 @@ const SignUp = (props) => {
         e.preventDefault();
         createUserWithEmailAndPassword(email, password)
             .then(async (userCredential) => {
-                const storageRef = ref(storage, userCredential.user.uid + '.jpg');
-                await uploadFile(storageRef, imageUpload);
-                const photoURL = await getDownloadURL(storageRef);
-
-                await setDoc(doc(firestore, 'users', userCredential.user.uid), {
-                    fullName: `${firstName} ${lastName}`,
-                    photoURL,
-                    uid: userCredential.user.uid,
-                    interactedUsers: []
-                });
-
-                updateProfile({displayName: `${firstName} ${lastName}`, photoURL})
-                    .then(() => {
-                        auth.signOut()
-                    })
-                    .then(() => {
-                        signInWithEmailAndPassword(email, password);
+                if(error){
+                    alert(error.message);
+                }
+                else{
+                    const storageRef = ref(storage, userCredential.user.uid + '.jpg');
+                    await uploadFile(storageRef, imageUpload);
+                    const photoURL = await getDownloadURL(storageRef);
+                    
+                    await setDoc(doc(firestore, 'users', userCredential.user.uid), {
+                        fullName: `${firstName} ${lastName}`,
+                        photoURL,
+                        uid: userCredential.user.uid,
+                        interactedUsers: []
                     });
+                
+                    updateProfile({displayName: `${firstName} ${lastName}`, photoURL})
+                        .then(() => {
+                            auth.signOut()
+                        })
+                        .then(() => {
+                            signInWithEmailAndPassword(email, password);
+                        });
+                    }
             });
     }
 
