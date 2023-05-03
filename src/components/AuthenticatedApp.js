@@ -32,8 +32,8 @@ const AuthenticatedApp = (props) => {
             </div>
 
             <div>
-                <button onClick={() => showPrivateChatRoomPage()}>Private Chat Rooms</button>
-                <button onClick={() => showPublicGroupPage()}>Public Groups</button>
+                <button className="btn btn-auth-app" onClick={() => showPrivateChatRoomPage()}>Private Chat Rooms</button>
+                <button className="btn btn-auth-app" onClick={() => showPublicGroupPage()}>Public Groups</button>
             </div>
 
             <PrivateChatRoomPage refference={privateChatRoomPage} currentUser={currentUser} />

@@ -44,14 +44,14 @@ const Chatroom = () => {
 
     return(
         <>
-            <button onClick={() => navigate('/')}>Go back</button>
+            <button className="btn" onClick={() => navigate('/')}>Go back</button>
             <main className="messages-space">
                 {messages && messages.filter(msg => msg.roomId === params.id).map((msg, index) => <Message key={index} message={msg}/>)}
             </main>
 
             <form onSubmit={(e) => sendMessage(e)}>
-              <input value={message} onChange={(e) => handleMessageInput(e.currentTarget.value)}/>
-              <button type="submit">Send</button>
+              <input className="message-input" value={message} onChange={(e) => handleMessageInput(e.currentTarget.value)}/>
+              <button className="btn" type="submit">Send</button>
             </form>
         </>
     )
