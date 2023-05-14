@@ -40,7 +40,8 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {
+  "devDependencies": {  
+    "jest": "^29.5.0",
     "react-router-dom": "^6.4.5"
   }
 }

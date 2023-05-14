@@ -14,7 +14,7 @@ const Message = (props) => {
     }, [])
 
     return (
-        <div className={`message ${messageClass}`}>
+        <div data-testid="message" className={`message ${messageClass}`}>
             <img className="message-photo" src={userPhotoURL} referrerPolicy="no-referrer"/>
             <p>{content}</p>
         </div>

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, BrowserRouter } from "react-router-dom";
 import { usersRef } from "../../firebase/setup";
 
 const PrivateRoom = (props) => {
@@ -22,7 +22,7 @@ const PrivateRoom = (props) => {
         <li className="list-items">
             <Link to={`/room/${id}`}>
                 <img className="profile-pic" src={userPhotoURL} referrerPolicy="no-referrer" />
-                <p>{userFullName}</p>
+                <p data-testid="private-room-name">{userFullName}</p>
             </Link>
         </li>
     );
