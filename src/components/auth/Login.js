@@ -30,7 +30,7 @@ function Login(props){
     }
 
     return (
-        <div className="modal" ref={loginRef}>
+        <div className="modal" ref={loginRef} data-testid="login-modal">
             <div className="modal-content">
                 <span className="close-btn" onClick={() => hideLogIn()}>&times;</span>
                 <form id="modal-form" onSubmit={(e) => handleFormSubmit(e)}>  

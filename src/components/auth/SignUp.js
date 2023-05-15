@@ -85,10 +85,10 @@ const SignUp = (props) => {
     }
 
     return(
-        <div className="modal" ref={signUpRef}>
+        <div className="modal" ref={signUpRef} data-testid="signup-modal">
             <div className="modal-content">
                 <span className="close-btn" onClick={() => hideSignUp()}>&times;</span>
-                <form id="modal-form" onSubmit={(e) => handleFormSubmit(e)}>  
+                <form id="modal-form" onSubmit={(e) => handleFormSubmit(e)} data-testid="signup-form">  
                     <input className="auth-input" type="text" name="first-name" id="first-name" placeholder="Enter first name" value={firstName} onChange={(e) => handleFirstNameInput(e.currentTarget.value)} required/>
                     <input className="auth-input" type="text" name="last-name" id="last-name" placeholder="Enter last name" value={lastName} onChange={(e) => handleLastNameInput(e.currentTarget.value)} required/>
                     <input className="auth-input" type="email" name="email" id="email" placeholder="Enter email" value={email} onChange={(e) => handleEmailInput(e.currentTarget.value)} required />
